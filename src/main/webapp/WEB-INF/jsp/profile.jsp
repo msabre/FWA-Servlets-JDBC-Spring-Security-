@@ -20,26 +20,26 @@
 </head>
 <body>
 
-    <%
-        AnnotationConfigApplicationContext applicationContext = (AnnotationConfigApplicationContext) session.getServletContext().getAttribute("springContext");
-        UserService userService = applicationContext.getBean("userService", UserService.class);
+<%
+    AnnotationConfigApplicationContext applicationContext = (AnnotationConfigApplicationContext) session.getServletContext().getAttribute("springContext");
+    UserService userService = applicationContext.getBean("userService", UserService.class);
 
-        User user = (User) session.getAttribute("user");
+    User user = (User) session.getAttribute("user");
 
-        List<Image> images = userService.findImageByUserId(user.getId());
-        request.setAttribute("images", images);
-//
+    List<Image> images = userService.findImageByUserId(user.getId());
+    request.setAttribute("images", images);
+
 //        List<Visit> visits = userService.findVisitsById(user.getId());
 //        request.setAttribute("visits", visits);
-    %>
+%>
 
-    <img alt="Photo not exist" src="<%=images.isEmpty() ? "C:\\images\\IMG_402_photo_1.jpg" : images.get(0).getPath()%>">
+<img alt="Photo not exist" src="images?name=<%=images.get(0).getFileName()%>" width="280" height="420"/>
 
-    <h2>It's Me</h2>
-    <br>
-    <h2><%=user.getEmail()%></h2>
+<h2>It's Me</h2>
+<br>
+<h2><%=user.getEmail()%></h2>
 
-    <br>
+<br>
 
 <%--    <tr>--%>
 <%--        <th>Date</th>--%>
@@ -54,29 +54,29 @@
 <%--        </tr>--%>
 <%--    </c:forEach>--%>
 
-    <br>
+<br>
 
-    <form enctype="multipart/form-data" method="post" action="images">
-        <p>
-            <input type="file" name="image">
-            <input type="submit" value="Отправить">
-        </p>
-    </form>
+<form enctype="multipart/form-data" method="post" action="images">
+    <p>
+        <input type="file" name="image">
+        <input type="submit" value="Отправить">
+    </p>
+</form>
 
-    <br>
+<br>
 
+<tr>
+    <th>File name</th>
+    <th>Size</th>
+    <th>MIME</th>
+</tr>
+<c:forEach items="${images}" var="item">
     <tr>
-        <th>File name</th>
-        <th>Size</th>
-        <th>MIME</th>
+        <td>${item.fileName}</td>
+        <td>${item.size}</td>
+        <td>${item.mime}</td>
     </tr>
-    <c:forEach items="${images}" var="item">
-        <tr>
-            <td>${item.fileName}</td>
-            <td>${item.size}</td>
-            <td>${item.mime}</td>
-        </tr>
-    </c:forEach>
+</c:forEach>
 
 </body>
 </html>
