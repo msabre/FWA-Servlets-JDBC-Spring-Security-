@@ -10,7 +10,9 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
+import java.net.InetAddress;
 import java.net.URL;
+import java.net.UnknownHostException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.StringTokenizer;
@@ -49,9 +51,18 @@ public class AuthSuccessServlet extends BaseServlet {
         String xForwardedForHeader = request.getHeader("X-Forwarded-For");
         if (xForwardedForHeader == null) {
             String ip = request.getRemoteAddr();
+
             if ("0:0:0:0:0:0:0:1".equals(ip)) {
                 String curr = getCurrentIP();
-                return curr != null ? curr : ip;
+
+                if (curr == null) {
+                    InetAddress inetAddress;
+                    try {
+                        inetAddress = InetAddress.getLocalHost();
+                        ip = inetAddress.getHostAddress();
+
+                    } catch (UnknownHostException ignore) { }
+                }
             }
             return ip;
 

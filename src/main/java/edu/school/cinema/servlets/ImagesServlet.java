@@ -113,6 +113,6 @@ public class ImagesServlet extends BaseServlet {
         }
 
         userService.saveImage(image);
-        req.getRequestDispatcher("/main/profile").forward(req, resp);
+        resp.sendRedirect("/authSuccess");
     }
 }
