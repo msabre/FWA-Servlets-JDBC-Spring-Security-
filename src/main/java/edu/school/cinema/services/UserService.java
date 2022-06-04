@@ -12,7 +12,6 @@ public interface UserService {
     String findPasswordByEmail(String email);
     User saveUser(User user);
     User findByEmail(String email);
-    User findByEmailWithContent(String email);
 
     Image saveImage(Image image);
     List<Image> findImageByUserId(Long id);

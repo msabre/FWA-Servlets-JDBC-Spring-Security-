@@ -35,6 +35,7 @@ public class ImagesServlet extends BaseServlet {
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws IOException {
         resp.setContentType("image/jpeg");
         String name = req.getParameter("name");
+        String typePhoto = req.getParameter("format");
 
         File image = new File(imageDirectory + "\\" + name);
         if (!image.exists()) {
@@ -42,17 +43,10 @@ public class ImagesServlet extends BaseServlet {
             return;
         }
 
-
-//        byte[] bytes = new byte[(int) image.length()];
-//        try (FileImageInputStream fis = new FileImageInputStream(image)) {
-//            fis.read(bytes);
-//        }
-//
-//        resp.getOutputStream().write(bytes);
-
         byte[] bytes;
         BufferedImage img = ImageIO.read(new FileImageInputStream(image));
-        img = cutPhoto(img);
+        if ("avatar".equals(typePhoto))
+            img = cutPhoto(img);
 
         try (ByteArrayOutputStream baos = new ByteArrayOutputStream()) {
             String format = name.substring(name.lastIndexOf(".") + 1);

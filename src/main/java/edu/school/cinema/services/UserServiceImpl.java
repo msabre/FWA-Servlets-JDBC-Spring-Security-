@@ -47,11 +47,6 @@ public class UserServiceImpl implements UserService, ApplicationContextAware {
     }
 
     @Override
-    public User findByEmailWithContent(String email) {
-        return userRepository.findByEmail(email);
-    }
-
-    @Override
     public List<Image> findImageByUserId(Long id) {
         return imageRepository.findByUserId(id);
     }

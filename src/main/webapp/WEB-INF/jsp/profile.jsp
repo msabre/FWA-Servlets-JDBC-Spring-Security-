@@ -6,6 +6,7 @@
 <%@ page import="org.springframework.web.context.support.AnnotationConfigWebApplicationContext" %>
 <%@ page import="edu.school.cinema.services.UserService" %>
 <%@ page import="org.springframework.context.annotation.AnnotationConfigApplicationContext" %>
+<%@ page import="java.util.Optional" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
 <head>
@@ -113,7 +114,7 @@
 <div id="image">
 
     <div>
-        <img alt="Photo not exist" src="images?name=<%=images.get(0).getFileName()%>" width="280px" height="420px"/>
+        <img alt="Photo not exist" src="images?name=<%=Optional.ofNullable(images.get(images.size() - 1)).map(Image::getFileName).orElse("")%>&type=avatar" width="280px" height="420px"/>
     </div>
 
     <div id="visits">
@@ -167,7 +168,7 @@
         <tbody>
             <c:forEach items="${images}" var="item">
                 <tr>
-                    <td>${item.fileName}</td>
+                    <td><a href="images?name=${item.fileName}" target="_blank">${item.fileName}</a></td>
                     <td>${item.size}</td>
                     <td>${item.mime}</td>
                 </tr>
