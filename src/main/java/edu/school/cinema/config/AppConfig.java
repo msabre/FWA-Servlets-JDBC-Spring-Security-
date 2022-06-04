@@ -16,7 +16,7 @@ import java.sql.Driver;
 
 @Configuration
 @ComponentScan(basePackages = "edu.school.cinema")
-@PropertySource(value = "WEB-INF/application.properties")
+@PropertySource(value = "file:${webapp.root}/WEB-INF/application.properties")
 public class AppConfig {
 
     @Value("${db.mysql.driver.name}")

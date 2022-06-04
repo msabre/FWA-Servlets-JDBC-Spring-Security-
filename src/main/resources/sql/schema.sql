@@ -61,8 +61,10 @@ BEGIN
     IF NOT table_exists('VISIT') THEN CALL execute_immediate(
             'CREATE TABLE fwa.VISIT(
                             ID MEDIUMINT AUTO_INCREMENT,
-                            TIME timestamp(6) DEFAULT CURRENT_TIMESTAMP(6),
                             USER_ID MEDIUMINT,
+                            DATE VARCHAR(70),
+                            TIME VARCHAR(70),
+                            IP VARCHAR(70),
                     PRIMARY KEY (ID));'
         );
     END IF;

@@ -14,13 +14,7 @@ import java.sql.SQLException;
 import java.sql.Types;
 
 @Repository("userRepository")
-public class UserRepository implements ApplicationContextAware {
-
-    private JdbcTemplate jdbcTemplate;
-
-    public void setApplicationContext(ApplicationContext applicationContext) throws BeansException {
-        jdbcTemplate = applicationContext.getBean("jdbcTemplate", JdbcTemplate.class);
-    }
+public class UserRepository extends BaseRepository {
 
     public User save(User user) {
         String query = "INSERT INTO fwa.USER(NAME, LAST_NAME, MIDDLE_NAME, PHONE_NUMBER, PASSWORD, EMAIL) VALUES(?, ?, ?, ?, ?, ?)";

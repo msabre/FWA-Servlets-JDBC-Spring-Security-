@@ -1,17 +1,24 @@
 package edu.school.cinema.models;
 
-import java.util.Date;
-
 public class Visit {
-    private Date date;
+    private long userId;
+    private String date;
     private String time;
     private String ip;
 
-    public Date getDate() {
+    public long getUserId() {
+        return userId;
+    }
+
+    public void setUserId(long userId) {
+        this.userId = userId;
+    }
+
+    public String getDate() {
         return date;
     }
 
-    public void setDate(Date date) {
+    public void setDate(String date) {
         this.date = date;
     }
 

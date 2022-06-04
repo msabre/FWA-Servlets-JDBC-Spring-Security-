@@ -35,8 +35,11 @@
         <url-pattern>/main/profile</url-pattern>
     </servlet-mapping>
 
+    <listener>
+        <listener-class>org.springframework.web.util.WebAppRootListener</listener-class>
+    </listener>
 
-        <!--Фильтр необходим для работы springWeb. Нужно именно такое имя-->
+    <!--Фильтр необходим для работы springWeb. Нужно именно такое имя-->
     <filter>
         <filter-name>springSecurityFilterChain</filter-name>
         <filter-class>org.springframework.web.filter.DelegatingFilterProxy</filter-class>

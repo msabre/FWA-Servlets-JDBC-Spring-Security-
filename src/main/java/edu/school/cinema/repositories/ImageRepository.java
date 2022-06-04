@@ -17,13 +17,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Repository("imageRepository")
-public class ImageRepository implements ApplicationContextAware {
-
-    private JdbcTemplate jdbcTemplate;
-
-    public void setApplicationContext(ApplicationContext applicationContext) throws BeansException {
-        jdbcTemplate = applicationContext.getBean("jdbcTemplate", JdbcTemplate.class);
-    }
+public class ImageRepository extends BaseRepository {
 
     public Image save(Image image) {
         String query = "INSERT INTO fwa.IMAGE(FILE_NAME, SIZE, MIME, PATH, USER_ID) VALUES(?, ?, ?, ?, ?)";
@@ -44,7 +38,7 @@ public class ImageRepository implements ApplicationContextAware {
         @Override
         public List<Image> extractData(ResultSet rs) throws SQLException, DataAccessException {
             List<Image> images = new ArrayList<>();
-            if (rs.next()) {
+            while (rs.next()) {
                 Image img = new Image();
                 img.setId(rs.getLong("ID"));
                 img.setFileName(rs.getString("FILE_NAME"));

@@ -60,10 +60,15 @@ public class UserServiceImpl implements UserService, ApplicationContextAware {
     public Image saveImage(Image image) {
         return imageRepository.save(image);
     }
-    
+
     @Override
     public List<Visit> findVisitsById(Long id) {
-        return null;
+        return visitRepository.findByUserId(id);
+    }
+
+    @Override
+    public Visit addVisit(Visit visit) {
+        return visitRepository.save(visit);
     }
 
     public Set<ConstraintViolation<User>> isValid(User user) {

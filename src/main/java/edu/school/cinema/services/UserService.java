@@ -18,4 +18,6 @@ public interface UserService {
     List<Image> findImageByUserId(Long id);
     List<Visit> findVisitsById(Long id);
     Set<ConstraintViolation<User>> isValid(User user);
+
+    Visit addVisit(Visit visit);
 }
