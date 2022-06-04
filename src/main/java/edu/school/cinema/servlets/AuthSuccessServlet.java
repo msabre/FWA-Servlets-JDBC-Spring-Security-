@@ -62,6 +62,8 @@ public class AuthSuccessServlet extends BaseServlet {
                         ip = inetAddress.getHostAddress();
 
                     } catch (UnknownHostException ignore) { }
+                } else {
+                    ip = curr;
                 }
             }
             return ip;
