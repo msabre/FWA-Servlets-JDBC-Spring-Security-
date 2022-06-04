@@ -31,14 +31,14 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
         http
                 .addFilterBefore(authenticationFilter(), UsernamePasswordAuthenticationFilter.class)
                 .authorizeRequests()
-                .antMatchers("/signUp", "/signIn", "/authSuccess", "/signUpView")
+                .antMatchers("/signUp", "/signIn", "/signUpView")
                 .permitAll()
                 .anyRequest()
                 .authenticated();
         http
                 .formLogin()
-                .loginPage("/a")
-                .failureForwardUrl("/a")
+                .loginPage("/")
+                .failureForwardUrl("/")
                 .permitAll()
                 .and()
                 .logout()
@@ -72,7 +72,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
     @Bean
     public AuthenticationSuccessHandler successHandler() {
-        return new MyCustomLoginSuccessHandler("/authSuccess");
+        return new MyCustomLoginSuccessHandler("/main/authSuccess");
     }
 
     @Bean

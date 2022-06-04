@@ -17,14 +17,14 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.StringTokenizer;
 
-@WebServlet("/authSuccess")
+@WebServlet("/main/authSuccess")
 public class AuthSuccessServlet extends BaseServlet {
 
     private static final SimpleDateFormat dateFormat = new SimpleDateFormat("MMMM dd, yyyy");
     private static final SimpleDateFormat timeFormat = new SimpleDateFormat("HH:mm");
 
     @Override
-    protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+    protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws IOException {
         User user = (User) req.getSession().getAttribute("user");
         if (user == null) {
             String email = (String) req.getSession().getAttribute("username");
@@ -44,7 +44,7 @@ public class AuthSuccessServlet extends BaseServlet {
         visit.setIp(ip);
 
         userService.addVisit(visit);
-        req.getRequestDispatcher("/main/profile").forward(req, resp);
+        resp.sendRedirect("/main/profile");
     }
 
     public static String getClientIpAddress(HttpServletRequest request) {

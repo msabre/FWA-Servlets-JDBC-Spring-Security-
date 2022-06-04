@@ -12,7 +12,7 @@
 
     <servlet-mapping>
         <servlet-name>loginJsp</servlet-name>
-        <url-pattern>/a</url-pattern>
+        <url-pattern>/</url-pattern>
     </servlet-mapping>
 
     <servlet>

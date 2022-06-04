@@ -17,7 +17,7 @@ import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.IOException;
 
-@WebServlet("/images")
+@WebServlet("/main/images")
 @MultipartConfig(fileSizeThreshold = 1024 * 5,
         maxFileSize = 1024 * 1024 * 2,
         maxRequestSize = 1024 * 1024 * 2)
@@ -113,6 +113,6 @@ public class ImagesServlet extends BaseServlet {
         }
 
         userService.saveImage(image);
-        resp.sendRedirect("/authSuccess");
+        resp.sendRedirect("/main/profile");
     }
 }
