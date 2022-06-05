@@ -3,34 +3,44 @@
     <title>Profile</title>
 
     <style>
-        p {
-            text-align:center
+        #signIn {
+            display:flex;
+            justify-content: center;
+            align-items: start;
+            position: relative;
         }
     </style>
 
 </head>
 <body>
 
-<form action=signIn method="post">
+<div id="signIn">
+    <form action=signIn method="post">
+        Email
+        <label>
+            <input type="text" name="login" size="100">
+        </label>
+        <br>
 
-    Email
-    <label>
-        <input type="text" name="login" size="100">
-    </label>
+        Password
+        <label>
+            <input type="text" name="password" size="100">
+        </label>
+        <br>
+
+        <input type="submit" value="signIn">
+
+    </form>
+
     <br>
 
-    Password
-    <label>
-        <input type="text" name="password" size="100">
-    </label>
-    <br>
-
-    <input type="submit" value="signIn">
-</form>
-
-<form action="signUpView">
-    <input type="submit" value="signUp">
-</form>
+    <div>
+        <form action="signUpView">
+            <input type="submit" value="signUp">
+        </form>
+    </div>
+    
+</div>
 
 </body>
 </html>

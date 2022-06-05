@@ -1,9 +1,6 @@
 package edu.school.cinema.config;
 
-import edu.school.cinema.services.CustomUserDetailsService;
-import edu.school.cinema.services.MyCustomLoginSuccessHandler;
-import edu.school.cinema.services.SimpleAccessDeniedHandler;
-import edu.school.cinema.services.SimpleAuthenticationEntryPoint;
+import edu.school.cinema.services.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -15,6 +12,7 @@ import org.springframework.security.config.annotation.web.configuration.EnableWe
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.security.web.authentication.AuthenticationFailureHandler;
 import org.springframework.security.web.authentication.AuthenticationSuccessHandler;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 
@@ -38,18 +36,19 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
         http
                 .formLogin()
                 .loginPage("/")
-                .failureForwardUrl("/")
                 .permitAll()
-                .and()
+        .and()
                 .logout()
-                .permitAll();
+                .permitAll()
+        .and()
+                .httpBasic();
 
         http.csrf().disable();
 
         // Для перехвата ошибок 401, 403
-        http.exceptionHandling()
-                .accessDeniedHandler(new SimpleAccessDeniedHandler())
-                .authenticationEntryPoint(new SimpleAuthenticationEntryPoint());
+//        http.exceptionHandling()
+//                .accessDeniedHandler(new SimpleAccessDeniedHandler())
+//                .authenticationEntryPoint(new SimpleAuthenticationEntryPoint());
     }
 
     @Override
@@ -64,6 +63,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
         filter.setPasswordParameter("password");
         filter.setFilterProcessesUrl("/signIn");
         filter.setAuthenticationSuccessHandler(successHandler());
+        filter.setAuthenticationFailureHandler(failureHandler());
         filter.setAuthenticationManager(authenticationManager());
         filter.setPostOnly(true);
         filter.afterPropertiesSet();
@@ -73,6 +73,11 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     @Bean
     public AuthenticationSuccessHandler successHandler() {
         return new MyCustomLoginSuccessHandler("/main/authSuccess");
+    }
+
+    @Bean
+    public AuthenticationFailureHandler failureHandler() {
+        return new MyCustomLoginFailureHandler("/asd");
     }
 
     @Bean
