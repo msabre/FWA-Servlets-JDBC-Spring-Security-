@@ -16,6 +16,8 @@ import java.awt.image.BufferedImage;
 import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.IOException;
+import java.net.URISyntaxException;
+import java.nio.file.Paths;
 
 @WebServlet("/main/images")
 @MultipartConfig(fileSizeThreshold = 1024 * 5,
@@ -35,9 +37,18 @@ public class ImagesServlet extends BaseServlet {
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws IOException {
         resp.setContentType("image/jpeg");
         String name = req.getParameter("name");
-        String typePhoto = req.getParameter("format");
+        String typePhoto = req.getParameter("type");
 
-        File image = new File(imageDirectory + "\\" + name);
+        String path = imageDirectory + "\\" + name;
+        if ("empty".equals(name)) {
+            try {
+                path = Paths.get(ImagesServlet.class.getResource("/avatar-male.jpg").toURI()).toFile().getPath();
+            } catch (URISyntaxException e) {
+                e.printStackTrace();
+            }
+        }
+
+        File image = new File(path);
         if (!image.exists()) {
             resp.getOutputStream().write(new byte[32]);
             return;
@@ -49,7 +60,7 @@ public class ImagesServlet extends BaseServlet {
             img = cutPhoto(img);
 
         try (ByteArrayOutputStream baos = new ByteArrayOutputStream()) {
-            String format = name.substring(name.lastIndexOf(".") + 1);
+            String format = path.substring(path.lastIndexOf(".") + 1);
             ImageIO.write(img, format, baos);
             bytes = baos.toByteArray();
         }

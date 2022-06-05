@@ -114,7 +114,7 @@
 <div id="image">
 
     <div>
-        <img alt="Photo not exist" src="images?name=<%=Optional.ofNullable(images.get(images.size() - 1)).map(Image::getFileName).orElse("")%>&type=avatar" width="280px" height="420px"/>
+        <img alt="Photo not exist" src="images?name=<%=!images.isEmpty() ? images.get(images.size() - 1).getFileName() : "empty"%>&type=avatar" width="280px" height="420px"/>
     </div>
 
     <div id="visits">

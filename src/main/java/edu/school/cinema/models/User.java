@@ -30,6 +30,12 @@ public class User {
     private String password;
 
     @AssertTrue
+    public boolean correctEmailPattern() {
+        // TODO pattern
+        return true;
+    }
+
+    @AssertTrue
     public boolean correctPasswordPattern() {
         // TODO pattern
         return true;
