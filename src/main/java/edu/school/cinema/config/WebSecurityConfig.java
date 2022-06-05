@@ -44,11 +44,6 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .httpBasic();
 
         http.csrf().disable();
-
-        // Для перехвата ошибок 401, 403
-//        http.exceptionHandling()
-//                .accessDeniedHandler(new SimpleAccessDeniedHandler())
-//                .authenticationEntryPoint(new SimpleAuthenticationEntryPoint());
     }
 
     @Override
@@ -77,7 +72,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
     @Bean
     public AuthenticationFailureHandler failureHandler() {
-        return new MyCustomLoginFailureHandler("/asd");
+        return new MyCustomLoginFailureHandler("/");
     }
 
     @Bean
